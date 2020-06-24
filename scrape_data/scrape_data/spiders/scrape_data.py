@@ -42,12 +42,12 @@ class ScrapeData(scrapy.Spider):
     def details_extractor(self, response):
         
         details= {
+            'name' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/h2/span/text()').get().strip(),
             'artist' : " , ".join(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[2]/div/div/ul/li[1]/span/a/text()').getall()).strip(),
             'genere' : " , ".join(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[2]/div/div/ul/li[2]/span/a/text()').getall()).strip(),         
             'lyrics by' :" , ".join(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[1]/span/a/text()').getall()).strip(),
             'music' : " , ".join(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[2]/span/a/text()').getall()).strip(),
             'movie' :" , ".join(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[3]/span/a/text()').getall()).strip(),
-            'name' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/h2/span/text()').get().strip(),
             'views' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/text()').getall()[-1].split('-')[-1].split("Visits")[0].strip(),
             'shares' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/div[4]/span/text()').get(),
             'lyrics' : 
