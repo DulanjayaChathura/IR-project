@@ -51,13 +51,9 @@ class ScrapeData(scrapy.Spider):
             'views' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/text()').getall()[-1].split('-')[-1].split("Visits")[0].strip(),
             'shares' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/div[4]/span/text()').get(),
             'lyrics' : 
-                #response.xpath('//pre/text()').getall()
                 re.sub("[-+a-zA-Z0-9#|\/()\t{}∆—]",""," ".join( response.xpath('//pre/text()').getall())).strip().replace("  ", "")
             }
-#        print(response.xpath('//pre/text()').getall())
         self.objects.append(details)
-        with open("lyrics_objects.json", 'w', encoding="utf8") as outfile:
-           json.dump(self.objects, outfile,indent = 4, sort_keys=True)
         
     def closed(self, reason):
         
