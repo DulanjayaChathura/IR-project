@@ -17,6 +17,7 @@ class ScrapeData(scrapy.Spider):
     genere_name_translator = Translator()
     lyrics_by_name_translator = Translator()
     music_by_name_translator = Translator()
+    movie_tranlator = Translator()
     objects = []
     song_name=""
     artist_name=""
@@ -52,12 +53,12 @@ class ScrapeData(scrapy.Spider):
             
     def details_extractor(self, response):
         
-        self.song_name= response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/h2/span/text()').get().strip().split("–")[-1]
-        self.artist_name=" , ".join(["" if artist == 'unknown' else self.artist_name_translator.translate(artist,src='en', dest='si').text for artist in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[2]/div/div/ul/li[1]/span/a/text()').getall()]).strip()
-        self.genere_name=" , ".join(["" if genere == 'unknown' else self.genere_name_translator.translate(genere,src='en', dest='si').text for genere in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[2]/div/div/ul/li[2]/span/a/text()').getall()]).strip()
-        self.lyrics_by_name=" , ".join(["" if lyrics_by == 'unknown' else self.lyrics_by_name_translator.translate(lyrics_by,src='en', dest='si').text for lyrics_by in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[1]/span/a/text()').getall()]).strip()
-        self.music_by_name=" , ".join(["" if music_by == 'unknown' else self.music_by_name_translator.translate(music_by,src='en', dest='si').text for music_by in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[2]/span/a/text()').getall()]).strip()
-        self.lyrics=  re.sub("[-+a-zA-Z0-9#|\/()\t{}∆—]",""," ".join( response.xpath('//pre/text()').getall())).strip().replace("  ", "")
+        self.song_name= response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/h2/span/text()').get().strip().split("–")[-1].replace("|", "")
+        self.artist_name=" , ".join(["" if artist == 'Unknown' else self.artist_name_translator.translate(artist,src='en', dest='si').text for artist in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[2]/div/div/ul/li[1]/span/a/text()').getall()]).strip()
+        self.genere_name=" , ".join(["" if genere == 'Unknown' else self.genere_name_translator.translate(genere,src='en', dest='si').text for genere in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[2]/div/div/ul/li[2]/span/a/text()').getall()]).strip()
+        self.lyrics_by_name=" , ".join(["" if lyrics_by == 'Unknown' else self.lyrics_by_name_translator.translate(lyrics_by,src='en', dest='si').text for lyrics_by in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[1]/span/a/text()').getall()]).strip()
+        self.music_by_name=" , ".join(["" if music_by == 'Unknown' else self.music_by_name_translator.translate(music_by,src='en', dest='si').text for music_by in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[2]/span/a/text()').getall()]).strip()
+        self.lyrics=  re.sub("[a-zA-Z0-9#\[\]|\/()\t{}∆— '=_+]",""," ".join( response.xpath('//pre/text()').getall()).replace("-", " ")).strip().replace("  ", "")
         if (self.song_name=="" or self.artist_name=="" or self.genere_name=="" or self.lyrics_by_name=="" or self.music_by_name=="" or self.lyrics==""):
             return
         
@@ -67,15 +68,15 @@ class ScrapeData(scrapy.Spider):
             'genere' : self.genere_name ,         
             'lyrics by' :self.lyrics_by_name,
             'music by' : self.music_by_name,
-            'movie' :" , ".join([self.translator.translate(movie,src='en', dest='si').text for movie in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[3]/span/a/text()').getall()]).strip(),
+            'movie' :" , ".join([self.movie_tranlator.translate(movie,src='en', dest='si').text for movie in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[3]/span/a/text()').getall()]).strip(),
             'views' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/text()').getall()[-1].split('-')[-1].split("Visits")[0].strip(),
-            'shares' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/div[4]/span/text()').get(),
+            'shares' : response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/div[4]/span/text()').get().strip(),
             'lyrics' : self.lyrics
               
             }
         self.objects.append(details)
-#        with open("lyrics_objects.json", 'w', encoding="utf8") as outfile:
-#           json.dump( self.objects, outfile,indent = 4,ensure_ascii=False)
+        # with open("lyrics_objects.json", 'w', encoding="utf8") as outfile:
+        #     json.dump( self.objects, outfile,indent = 4,ensure_ascii=False)
         
     def closed(self, reason):
         
