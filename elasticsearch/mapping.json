@@ -1,0 +1,56 @@
+{
+    "mappings": {
+        "doc":{
+            "dynamic":"strict",
+            "properties": {
+                "name": {
+                "type": "text",
+                "analyzer": "autocomplete"
+                
+                },
+                "artist": {
+                "type": "text",
+                "analyzer": "autocomplete"
+                
+                },
+                "genere": {
+                "type": "text",
+                "analyzer": "autocomplete"
+                
+                },
+                "lyrics by": {
+                "type": "text",
+                "analyzer": "autocomplete"
+                
+                },
+                "music by": {
+                    "type": "text",
+                    "analyzer": "autocomplete"
+                
+                },
+                "movie": {
+                    "type": "text",
+                    "analyzer": "autocomplete"
+                    
+                },
+                "views": {
+                    "type": "text",
+                    "analyzer": "autocomplete"
+                    
+                },
+                "shares": {
+                    "type": "text",
+                    "analyzer": "autocomplete"
+                
+                },
+                "lyrics": {
+                    "type": "text",
+                    "analyzer": "autocomplete"
+                
+                }
+            }
+            }
+
+    }
+}
+ 
