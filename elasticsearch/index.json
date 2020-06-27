@@ -3,21 +3,32 @@
     "settings": {
 
         "index" : {
-            "number_of_shards" : 3, 
-            "number_of_replicas" : 2 
-        },
-        "analysis": {
-            "analyzer": {
-                "autocomplete": { 
-                    "type": "custom",
-                    "tokenizer": "whitespace",
-                    "filter": [
-                    "lowercase"
-                    
-                    ]
-                }
+            "number_of_shards" : 1, 
+            "number_of_replicas" : 1 
+      },
+      "analysis": {
+        
+        "tokenizer": {
+        "my_tokenizer": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 10,
+          "token_chars":[
+             "letter"
+
+          ]
+        }
+      },
+        "analyzer": {
+          "my_analyzer": { 
+            "type": "custom",
+            "tokenizer": "my_tokenizer"
+          
         }
       }
+        
+
+     }
     }
    
 }

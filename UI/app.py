@@ -1,5 +1,9 @@
 from flask import Flask, redirect, url_for, request,render_template
+from elasticsearch import Elasticsearch
+
+
 app = Flask(__name__)
+es = Elasticsearch()
 
 # @app.route('/success/<name>')
 # def success(name):

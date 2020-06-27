@@ -5,52 +5,52 @@
             "properties": {
                 "name": {
                 "type": "text",
-                "analyzer": "autocomplete"
+                "analyzer": "my_analyzer"
                 
                 },
                 "artist": {
                 "type": "text",
-                "analyzer": "autocomplete"
+                "analyzer": "my_analyzer"
                 
                 },
                 "genere": {
                 "type": "text",
-                "analyzer": "autocomplete"
+                "analyzer": "my_analyzer"
                 
                 },
                 "lyrics by": {
                 "type": "text",
-                "analyzer": "autocomplete"
+                "analyzer": "my_analyzer"
                 
                 },
                 "music by": {
                     "type": "text",
-                    "analyzer": "autocomplete"
+                    "analyzer": "my_analyzer"
                 
                 },
                 "movie": {
                     "type": "text",
-                    "analyzer": "autocomplete"
+                    "analyzer": "my_analyzer"
                     
                 },
                 "views": {
                     "type": "text",
-                    "analyzer": "autocomplete"
+                    "analyzer": "my_analyzer"
                     
                 },
                 "shares": {
                     "type": "text",
-                    "analyzer": "autocomplete"
+                    "analyzer": "my_analyzer"
                 
                 },
                 "lyrics": {
                     "type": "text",
-                    "analyzer": "autocomplete"
+                    "analyzer": "my_analyzer"
                 
                 }
             }
-            }
-
-    }
+        }
+    
+        }
 }
  
