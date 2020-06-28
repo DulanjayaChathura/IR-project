@@ -1,40 +1,42 @@
 
 {
-    "index" : {
-        "number_of_shards" : 1, 
-        "number_of_replicas" : 1 
-  },
-  "analysis": {
-     "char_filter": {
-       "unwanterd_characters":{
-          "type": "mapping",
-          "mappings": [ 
-            "\u200d=>", 
-            "\u200B=>",
-            ",=>"
-      ]
-       }
+  "settings": {
 
-      },
-      "filter": {
-        "autocomplete_filter": {
-          "type": "edge_ngram",
-          "min_gram": 1,
-          "max_gram": 20
-        }
-      },
-      "analyzer": {
-        "my_analyzer": { 
-          "type": "custom",
-          "char_filter":"unwanterd_characters",
-          "tokenizer": "whitespace",
-          "filter": [
-            "lowercase",
-            "autocomplete_filter"
-          ]
+    "index" : {
+          "number_of_shards" : 1, 
+          "number_of_replicas" : 1 
+    },
+    "analysis": {
+       "char_filter": {
+         "unwanterd_characters":{
+            "type": "mapping",
+            "mappings": [ 
+              "\u200d=>", 
+              "\u200B=>",
+              ",=>"
+        ]
+         }
+
+        },
+        "filter": {
+          "autocomplete_filter": {
+            "type": "edge_ngram",
+            "min_gram": 2,
+            "max_gram": 20
+          }
+        },
+        "analyzer": {
+          "my_analyzer": { 
+            "type": "custom",
+            "char_filter":"unwanterd_characters",
+            "tokenizer": "whitespace",
+            "filter": [
+              "lowercase",
+              "autocomplete_filter"
+            ]
+          }
         }
       }
-    }
    
-
+    }
 }

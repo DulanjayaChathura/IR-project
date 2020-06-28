@@ -1,56 +1,55 @@
 {
+    
     "mappings": {
-        "doc":{
-            "dynamic":"strict",
-            "properties": {
-                "name": {
+    "doc":{
+        "dynamic":"strict",
+        "properties": {
+          
+          
+            "name": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            
+            },
+            "artist": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            
+            },
+            "genere": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            
+            },
+            "lyrics by": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            
+            },
+            "music by": {
+                "type": "text",
+                "analyzer": "my_analyzer"
+            
+            },
+            "key": {
                 "type": "text",
                 "analyzer": "my_analyzer"
                 
-                },
-                "artist": {
+            },
+            "views": {
+                "type": "integer"
+                
+            },
+            "shares": {
+                "type": "integer"
+            
+            },
+            "lyrics": {
                 "type": "text",
                 "analyzer": "my_analyzer"
-                
-                },
-                "genere": {
-                "type": "text",
-                "analyzer": "my_analyzer"
-                
-                },
-                "lyrics by": {
-                "type": "text",
-                "analyzer": "my_analyzer"
-                
-                },
-                "music by": {
-                    "type": "text",
-                    "analyzer": "my_analyzer"
-                
-                },
-                "movie": {
-                    "type": "text",
-                    "analyzer": "my_analyzer"
-                    
-                },
-                "views": {
-                    "type": "text",
-                    "analyzer": "my_analyzer"
-                    
-                },
-                "shares": {
-                    "type": "text",
-                    "analyzer": "my_analyzer"
-                
-                },
-                "lyrics": {
-                    "type": "text",
-                    "analyzer": "my_analyzer"
-                
-                }
+            
             }
         }
-    
-        }
+    }
 }
- 
+}
