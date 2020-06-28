@@ -25,7 +25,7 @@ def search():
       if(len(hits)==0):
             return render_template('ui.html', result = "No search result exists")
       lyrcs_list=[lyrics["_source"] for lyrics in hits ]
-      return render_template('ui.html', result = lyrcs_list)
+      return render_template('ui.html', results = lyrcs_list)
 
 #    else:
 #       user = request.args.get('nm')
