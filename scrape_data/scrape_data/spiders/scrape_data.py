@@ -149,8 +149,8 @@ class ScrapeData(scrapy.Spider):
             'music by' : self.music_by_name,
             # 'movie' :" , ".join([self.movie_tranlator.translate(movie,src='en', dest='si').text for movie in response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div[1]/div[3]/div/ul/li[3]/span/a/text()').getall()]).strip(),
             'key' :self.key,
-            'views' : int(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/text()').getall()[-1].split('-')[-1].split("Visits")[0].strip()),
-            'shares' : int(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/div[4]/span/text()').get().strip()),
+            'views' : int(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/text()').getall()[-1].split('-')[-1].split("Visits")[0].strip().replace(",", "")),
+            'shares' : int(response.xpath('/html/body/div[1]/div[1]/div/main/article/div[3]/div/div[4]/span/text()').get().strip().replace(",", "")),
             'lyrics' : self.lyrics
               
             }
