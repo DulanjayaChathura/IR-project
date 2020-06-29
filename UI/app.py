@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request,render_template
 from elasticsearch import Elasticsearch
 from sinling import SinhalaTokenizer,preprocess, word_joiner,word_splitter
-
+import json
 
 
 
@@ -20,7 +20,7 @@ key_list =["major","minor"]
 artist_list=["ගේ","ගැයූ","ගායනා කල","ගායනා කරන"]
 # possetion_list=["","","",]
 
-popular_list=["ජනප්‍රිය","හොඳම","ප්‍රසිද්ධ","ප්‍රකට","ජනප්‍රියතම"]
+popular_list=["ජනප්‍රිය","හොඳම","ප්‍රසිද්ධ","ප්‍රකට","ජනප්‍රියතම","සුපිරි"]
 
 # ["name", "artist","genere","lyrics by","music by","key","lyrics" ]  
 # @app.route('/success/<name>')
@@ -37,9 +37,11 @@ def main():
 @app.route('/',methods = ['POST'])
 def search():
       boosting_list=[]
-      is_rating_query=False 
+      query=[]
+      is_rating_query=False
+      numeric_value=0
       query_request= request.form["query"].strip().lower()
-      
+      processed_query_request=""
       token_list=tokenizer.tokenize(query_request)
       
       
@@ -54,36 +56,60 @@ def search():
             boosting_list.append("music by^2")
       if(any(x in key_list for x in token_list)):
             boosting_list.append("key^2")
-      if(any(x in artist_list for x in token_list)):
+      if(any(("ගේ" in x or x in artist_list) for x in token_list)):
             boosting_list.append("artist^2")
       if(any(x in popular_list for x in token_list)):
+            token_list = [i for i in token_list if i not in popular_list] 
             is_rating_query= True
+      if(any(x.isnumeric() for x in token_list)):
+            for x in token_list:
+                  if (x.isnumeric()):
+                        print(x)
+                        token_list.remove(x)
+                        numeric_value=int(x)
 
       # = [ if (lyrics_by in token_list) else "lyrics by"for lyrics_by in  lyrics_by_list][0]
       # boosting_list[4] = ["music by^3" if (music_by in token_list) else "music by"for music_by in  music_by_list][0]
       # boosting_list[5] = ["key^3" if (music_by in token_list) else "key"for music_by in  music_by_list][0]
 
+      
       # affix=word_splitter.split(query_request)["affix"]
-     
-      processed_query_request=" ".join([word_splitter.split(item)["base"] for item in token_list]) 
+
+      processed_query_request =" ".join([word_splitter.split(item)["base"] if len(item)>5 else item for item in token_list]) 
+
       # result = es.search(index="lyrics", doc_type="doc",body={  "query": {"match" : { "genere": affix}}})
 
       boosting_list=list(dict.fromkeys(boosting_list))
+      print(numeric_value)
+
       print(query_request) 
       print(token_list)
       print(processed_query_request)
-      print(boosting_list) 
-      boosted_query= es.search(index="lyrics", doc_type="doc",body=
-             {"query" : {
-                  "multi_match" : {
-                        "query" : processed_query_request,
-                        "fields" : boosting_list
+      print(boosting_list)
+
+      if(len(processed_query_request)==0):
+            query= {"query" : {
+                  "match_all" :{}
+             }
+            }
+      else:
+            query= {"query" : {
+                        "multi_match" : {
+                              "query" : processed_query_request,
+                              "fields" : boosting_list
+                        }
                   }
-      }
-      }
+            }
+      # if(len(boosting_list)==0):
+      #        boosting_list=["name", "artist","genere","lyrics by","music by","key","lyrics" ]  
+
+      if(is_rating_query):
+            query["sort"]=[{'views':'desc'}]
+      if(numeric_value !=0):
+            query["size"] = numeric_value
 
 
-      )
+      boosted_query= es.search(index="lyrics", doc_type="doc",body=json.dumps(query))
 
       hits = boosted_query["hits"]["hits"]
 
