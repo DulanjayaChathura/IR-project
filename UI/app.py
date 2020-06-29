@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request,render_template
 from elasticsearch import Elasticsearch
 from sinling import SinhalaTokenizer,preprocess, word_joiner,word_splitter
-
+import Levenshtein as lev
 
 
 
@@ -11,11 +11,10 @@ tokenizer = SinhalaTokenizer()
 es = Elasticsearch()
 hits=[]
 lyrcs_list=[]
-dic={
-      ""
-
-
-}
+music_by=["සංගීත","අධ්‍යක්ෂණය","තනු"]
+lyrics_by=["රචිත", "රචනය","ලියන"]
+genere_list =["පැරණි","ඉල්ලීම","චිත්‍රපට","ක්ලැසික්","පොප්ස්","කැලිප්සෝ","ගෝල්ඩන් ඕල්ඩීස්","යුගල","පොප්","උද්වේගකර"]
+key_list =["major","minor"]
 
 # @app.route('/success/<name>')
 # def success(name):
