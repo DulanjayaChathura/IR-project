@@ -13,7 +13,7 @@
             "mappings": [ 
               "\u200d=>", 
               "\u200B=>",
-              ",=>",
+              ",=> ",
               ".=>",
               "/=>",
               "|=>",
@@ -26,23 +26,39 @@
 
         },
         "filter": {
-          "autocomplete_filter": {
+          "edge_ngram_filter": {
             "type": "edge_ngram",
             "min_gram": 2,
             "max_gram": 20
+          },
+          "stop_word_filter":{
+            "type": "stop",
+            "stopwords":["සහ","හා", "වැනි", "සේ", "‌මෙන්", "සමග"]
+            
           }
         },
         "analyzer": {
-          "my_analyzer": { 
+          "data_analyzer": { 
             "type": "custom",
+            "tokenizer": "icu_tokenizer",
             "char_filter":"unwanterd_characters",
-            "tokenizer": "whitespace",
             "filter": [
               "lowercase",
-              "autocomplete_filter"
+              "stop_word_filter",
+              "edge_ngram_filter"
+            ]
+          },
+          "search_analyzer":{
+            "type":"custom",
+            "tokenizer": "icu_tokenizer",
+            "char_filter":"unwanterd_characters",
+            "filter": [
+              "lowercase",
+              "stop_word_filter"
             ]
           }
         }
       }
-  } 
+     
+  }
 }

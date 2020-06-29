@@ -1,45 +1,43 @@
 {
-    
     "mappings": {
         "doc":{
             "dynamic":"strict",
             "properties": {
               
-              
                 "name": {
                     "type": "text",
-                    "analyzer": "my_analyzer",
-                    "search_analyzer":"my_analyzer"
+                    "analyzer": "data_analyzer",
+                    "search_analyzer":"search_analyzer"
                 
                 },
                 "artist": {
                     "type": "text",
-                    "analyzer": "my_analyzer",
-                    "search_analyzer":"my_analyzer"
+                    "analyzer": "data_analyzer",
+                    "search_analyzer":"search_analyzer"
                 
                 },
                 "genere": {
                     "type": "text",
-                    "analyzer": "my_analyzer",
-                    "search_analyzer":"my_analyzer"
+                    "analyzer": "data_analyzer",
+                    "search_analyzer":"search_analyzer"
                 
                 },
                 "lyrics by": {
                     "type": "text",
-                    "analyzer": "my_analyzer",
-                    "search_analyzer":"my_analyzer"
+                    "analyzer": "data_analyzer",
+                    "search_analyzer":"search_analyzer"
                 
                 },
                 "music by": {
                     "type": "text",
-                    "analyzer": "my_analyzer",
-                    "search_analyzer":"my_analyzer"
+                    "analyzer": "data_analyzer",
+                    "search_analyzer":"search_analyzer"
                 
                 },
                 "key": {
                     "type": "text",
-                    "analyzer": "my_analyzer",
-                    "search_analyzer":"my_analyzer"
+                    "analyzer": "data_analyzer",
+                    "search_analyzer":"search_analyzer"
                     
                 },
                 "views": {
@@ -52,13 +50,12 @@
                 },
                 "lyrics": {
                     "type": "text",
-                    "analyzer": "my_analyzer",
-                    "search_analyzer":"my_analyzer"
+                    "analyzer": "data_analyzer",
+                    "search_analyzer":"search_analyzer"
                 
                 }
             }
         }
     
         }
-
 }
