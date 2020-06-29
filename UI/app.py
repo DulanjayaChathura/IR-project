@@ -13,14 +13,14 @@ hits=[]
 lyrcs_list=[]
 processed_query_request=""
 
-music_by_list=["සංගීත","අධ්‍යක්ෂණය","තනු"]
+music_by_list=["සංගීත","අධ්‍යක්ෂණය","තනු","රචනය","ලියන ලද","ලියපු"]
 lyrics_by_list=["රචිත", "රචනය","ලියන","ලියූ"]
 genere_list =["පැරණි","ඉල්ලීම","චිත්‍රපට","ක්ලැසික්","පොප්ස්","කැලිප්සෝ","ගෝල්ඩන් ඕල්ඩීස්","යුගල","පොප්","උද්වේගකර"]
 key_list =["major","minor"]
-artist_list=["ගේ","ගැයූ","ගායනා කල","ගායනා කරන"]
+artist_list=["ගේ","ගැයූ","ගායනා කල","ගායනා කරන","ගයන","කිව්ව",]
 # possetion_list=["","","",]
 
-popular_list=["ජනප්‍රිය","හොඳම","ප්‍රසිද්ධ","ප්‍රකට","ජනප්‍රියතම","සුපිරි"]
+popular_list=["ජනප්‍රිය","හොඳම","ප්‍රසිද්ධ","ප්‍රකට","ජනප්‍රියතම","සුපිරි","ජනප්‍රියම",'සුප්‍රකට',"හොඳ"]
 
 # ["name", "artist","genere","lyrics by","music by","key","lyrics" ]  
 # @app.route('/success/<name>')
@@ -86,7 +86,7 @@ def search():
       print(token_list)
       print(processed_query_request)
       print(boosting_list)
-
+      print(is_rating_query)
       if(len(processed_query_request)==0):
             query= {"query" : {
                   "match_all" :{}
