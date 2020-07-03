@@ -36,7 +36,7 @@ def main():
 
 @app.route('/',methods = ['POST'])
 def search():
-      boosting_list=[]
+      boosting_list=["name"]
       query=[]
       is_rating_query=False
       numeric_value=0
