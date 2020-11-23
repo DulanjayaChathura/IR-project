@@ -1,4 +1,4 @@
-# Sinhla song search engnine
+# Sinhala song search engine
 
 The search engine was created using Elasticsearch. The search engine only consists of Sinhala songs. A simple UI and a backend were created using Python Flask.
 
@@ -43,7 +43,7 @@ This corpus was built using scraping data from https://sinhalasongbook.com/ site
 
 ### setting up index
 
-1. First of it necessary to create an index to perform operations. To do that execute below queries on Elasticsearch 
+1. First of all, it necessary to create an index to perform operations. To do that execute below queries on Elasticsearch 
 ```
 PUT lyrics
  {
